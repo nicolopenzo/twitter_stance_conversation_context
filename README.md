@@ -1,1 +1,3 @@
-# twitter_stance_conversation_context
+# Stance Detection on Twitter with Conversational Context
+
+Preliminary project based om the dataset distributed for RumourEval2019
