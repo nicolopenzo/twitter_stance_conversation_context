@@ -1,5 +1,5 @@
- time idA idB label
-0 0 1 0 1
-1 48 3 1 0
-2 104 2 1 0
-3 61 4 3 0
+time idA idB label
+0 1 0 1
+48 3 1 0
+104 2 1 0
+61 4 3 0
