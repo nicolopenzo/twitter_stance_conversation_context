@@ -56,6 +56,8 @@ def extract_posts_users(path):
             user_info["screen_name"] = file["user"]["screen_name"]
             user_info["created_at"] = datetime.strptime(file["user"]["created_at"], '%a %b %d %H:%M:%S %z %Y')
             users[int(file["user"]["id"])] = user_info
+          f.close()
+
         os.chdir("..")
 
         os.chdir("replies")
@@ -79,6 +81,7 @@ def extract_posts_users(path):
                 user_info["screen_name"] = file["user"]["screen_name"]
                 user_info["created_at"] = datetime.strptime(file["user"]["created_at"], '%a %b %d %H:%M:%S %z %Y')
                 users[int(file["user"]["id"])] = user_info
+              f.close()
 
         os.chdir("..")
         os.chdir("..")
@@ -128,6 +131,7 @@ def extract_chains(path):
 def extract_labels(path):
   with open(path, 'r') as f:
     data = json.load(f)
+    f.close()
 
   labels = ['comment', 'support', 'deny', 'query']
 
@@ -150,6 +154,7 @@ def extract_structure(path):
       os.chdir(str(d))
       with open("structure.json", 'r') as f:
         structures[d] = json.load(f)
+        f.close()
       os.chdir("..")
 
     os.chdir("..")
@@ -177,6 +182,7 @@ def extract_structure(path):
 
 def extract_conversation_graph(trees, posts):
   graph_source = dict()
+  graph_post = dict()
   graph_dest = dict()
   graph_time = dict()
   for item in trees.keys():

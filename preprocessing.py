@@ -29,13 +29,20 @@ def preprocess_text(posts):
 '''
 
 
-def pad_chains(chains, trees, parents, graph_source, graph_dest, graph_time, pad_vector, len_max_chains):
+def pad_chains(chains, thread, trees, parents, graph_source, graph_dest, graph_time, pad_vector, pad_vector_thread, len_max_chains, len_max_thread):
     for idx in range(len(chains)):
         pp = list()
+
+        pp_thread = list()
+
         for j in range(len(chains[idx])):
             pp.append(1)
 
+        for j in range(len(thread[idx])):
+            pp_thread.append(1)
+
         pad = len_max_chains-len(chains[idx])
+        pad_thread = len_max_thread - len(thread[idx])
 
         for p in range(pad):
             chains[idx].append(-1)
@@ -46,7 +53,29 @@ def pad_chains(chains, trees, parents, graph_source, graph_dest, graph_time, pad
             graph_time.append(datetime.timedelta(-1))
             pp.append(0)
 
+        for p in range(pad_thread):
+            thread[idx].append(-1)
+            pp_thread.append(0)
+
         pad_vector.append(pp.copy())
+        pad_vector_thread.append(pp_thread.copy())
+
         del pp
+        del pp_thread
 
     return
+
+def extract_thread(tree, parents):
+    thread = list()
+    last = tree[-1]
+    new_last = parents[-1]
+    thread.append(last)
+    while new_last!=0:
+        temp_idx = tree.index(new_last)
+        last = tree[temp_idx]
+        new_last = parents[temp_idx]
+        thread.append(last)
+
+    thread.reverse()
+
+    return thread
